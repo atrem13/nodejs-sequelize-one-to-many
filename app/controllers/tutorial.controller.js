@@ -30,3 +30,31 @@ exports.createComment = (tutorialId, comment) => {
         console.log(">> Error while creating comment: ", err);
     });
 };
+
+exports.findTutorialById = (tutorialId) => {
+    return Tutorial.findByPk(tutorialId, { include: ["comments"] })
+    .then((tutorial) => {
+        return tutorial;
+    })
+    .catch((err) => {
+        console.log(">> Error while finding tutorial: ", err);
+    });
+};
+
+exports.findCommentById = (id) => {
+    return Comment.findByPk(id, { include: ["tutorial"] })
+    .then((comment) => {
+        return comment;
+    })
+    .catch((err) => {
+        console.log(">> Error while finding comment: ", err);
+    });
+};
+
+exports.findAll = () => {
+    return Tutorial.findAll({
+      include: ["comments"],
+    }).then((tutorials) => {
+      return tutorials;
+    });
+};
